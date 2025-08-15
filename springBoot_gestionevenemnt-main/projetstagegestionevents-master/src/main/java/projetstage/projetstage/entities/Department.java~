@@ -1,0 +1,48 @@
+package projetstage.projetstage.entities;
+
+public class Department {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long  idDep;
+    private String nomDep;
+
+    @ManyToOne
+    private Departement parentDepartement;
+
+    @ManyToOne
+    private Utilisateur responsable;
+
+    public Long getIdDep() {
+        return idDep;
+    }
+
+    public void setIdDep(Long idDep) {
+        this.idDep = idDep;
+    }
+
+    public String getNomDep() {
+        return nomDep;
+    }
+
+    public void setNomDep(String nomDep) {
+        this.nomDep = nomDep;
+    }
+
+    public Departement getParentDepartement() {
+        return parentDepartement;
+    }
+
+    public void setParentDepartement(Departement parentDepartement) {
+        this.parentDepartement = parentDepartement;
+    }
+
+    public Utilisateur getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Utilisateur responsable) {
+        this.responsable = responsable;
+    }
+
+
+}
