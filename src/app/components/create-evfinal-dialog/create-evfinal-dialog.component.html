@@ -1,0 +1,165 @@
+<mat-card class="form-container">
+  <mat-card-header>
+    <mat-card-title>
+      <h2 class="form-title">📅 Créer un événement</h2>
+    </mat-card-title>
+  </mat-card-header>
+
+  <div class="scrollable-form">
+    <form [formGroup]="evenementForm" (ngSubmit)="onSubmit()">
+
+      <!-- Titre -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>🏷️ Titre*</mat-label>
+        <input matInput formControlName="titre" required>
+      </mat-form-field>
+
+      <!-- Image -->
+      <div class="file-upload">
+        <label for="imageEvenement">🖼️ Image pour la participation</label>
+        <input type="file" id="imageEvenement" (change)="onImageEvenementSelected($event)" accept="image/*">
+      </div>
+
+      <!-- Description -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>🖋️ Description</mat-label>
+        <textarea matInput formControlName="description" rows="4"></textarea>
+      </mat-form-field>
+
+      <!-- Date -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>📅 Date*</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateEvenement">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Lieu -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>📍 Lieu</mat-label>
+        <input matInput formControlName="lieuEvenement">
+      </mat-form-field>
+
+      <!-- Coût -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>💰 Coût*</mat-label>
+        <input matInput type="number" formControlName="cout" min="0">
+      </mat-form-field>
+
+      <!-- Participants -->
+      <section class="form-section">
+        <h3>👥 Participants</h3>
+        <div formArrayName="participants">
+          <div *ngFor="let p of participantsArray.controls; let i=index" [formGroupName]="i" class="participant-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Participant (sélection interne ou email externe)</mat-label>
+              <mat-select formControlName="idUser" (selectionChange)="onParticipantSelected(i)">
+                <mat-option [value]="null">Email externe...</mat-option>
+                <mat-option *ngFor="let u of utilisateurs" [value]="u.idUser">{{u.email}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" placeholder="Email si externe">
+            </mat-form-field>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeParticipant(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <button mat-stroked-button type="button" (click)="addParticipant()">➕ Ajouter participant</button>
+      </section>
+
+      <!-- Fournisseurs -->
+    <section class="form-section">
+     <h3><span class="icon">🏢</span> Fournisseurs</h3>
+        <div formArrayName="fournisseurs">
+          <div
+            *ngFor="let fournisseur of fournisseursArray.controls; let i = index"
+            [formGroupName]="i"
+            class="form-row fournisseur-row"
+          >
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>🏷️ Nom</mat-label>
+              <input matInput formControlName="nom" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>📧 Email</mat-label>
+              <input matInput formControlName="email" type="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>📞 Numéro</mat-label>
+              <input matInput formControlName="numero" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>🏷️ Type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option value="SECURITE">Sécurité</mat-option>
+                <mat-option value="NETTOYAGE">Nettoyage</mat-option>
+                <mat-option value="MAINTENANCE">Maintenance</mat-option>
+                <mat-option value="TEAMBUILDING">TeamBuilding</mat-option>
+                <mat-option value="IMPRIMERIE">Imprimerie</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <!-- Documents -->
+            <div class="upload-section">
+              <div *ngFor="let fname of fileNames[i]; let idx=index" class="file-row">
+                📄 {{fname}}
+                <a *ngIf="fileUrls[i][idx]" [href]="fileUrls[i][idx]" target="_blank">Voir</a>
+                <button mat-icon-button color="warn" type="button" (click)="removeFournisseurFile(i, idx)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+
+              <button mat-stroked-button type="button" (click)="triggerFileInput(i)">📎 Joindre document</button>
+              <button mat-icon-button type="button" color="primary" (click)="addFileInput(i)">
+                <mat-icon>add</mat-icon>
+              </button>
+              <input type="file" #fileInput (change)="onFileChange($event,i)" hidden multiple>
+            </div>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeFournisseur(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
+        </div>
+        <button mat-stroked-button type="button" (click)="addFournisseur()">➕ Ajouter fournisseur</button>
+      </section>
+
+    <div class="file-upload">
+  <label>🖼️ Images pour l'événement</label>
+
+  <!-- Bouton + pour ajouter des fichiers -->
+  <button mat-icon-button color="primary" type="button" (click)="triggerImageInput()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <!-- Input caché -->
+  <input type="file" #imageInput (change)="onImageEvenementSelected($event)" accept="image/*" multiple hidden>
+
+  <!-- Affichage des images sélectionnées -->
+  <div class="selected-images">
+    <div *ngFor="let img of imageEvenementFiles; let i = index" class="image-row">
+      <span>📄 {{img.name}}</span>
+      <button mat-icon-button color="warn" type="button" (click)="removeImageEvenement(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+      <div class="form-actions">
+        <button mat-flat-button color="primary" type="submit">✅ Créer</button>
+        <button mat-stroked-button type="button" (click)="onCancel()">❌ Annuler</button>
+      </div>
+
+    </form>
+  </div>
+</mat-card>

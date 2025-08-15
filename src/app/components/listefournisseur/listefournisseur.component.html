@@ -1,0 +1,42 @@
+<div class="fournisseur-container">
+  <div class="header">
+      <h2 class="page-titlee"> 📩 Liste des Fournisseurs</h2>
+    <button mat-raised-button color="primary" (click)="openAjouterDialog()">
+      
+     ➕  Ajouter
+    </button>
+  </div>
+
+  <div *ngIf="fournisseurs.length > 0" class="card-grid">
+    <mat-card *ngFor="let f of fournisseurs" class="card">
+      <img mat-card-image class="profile-image" src="assets/images/people/OIP.jpeg" alt="Photo fournisseur" />
+
+      <mat-card-content>
+        <h3 class="name">{{ f.nom }} {{ f.prenom }}</h3>
+        <div class="info-row">
+          <mat-icon>email</mat-icon>
+          <span>{{ f.email }}</span>
+        </div>
+        <div class="info-row">
+          <mat-icon>call</mat-icon>
+          <span>{{ f.numero }}</span>
+        </div>
+        <div class="info-row">
+          <mat-icon>badge</mat-icon>
+          <span>{{ f.type }}</span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end" class="action-row">
+        <button mat-stroked-button color="accent" (click)="openDocumentDialog(f)">
+          <iconify-icon icon="tabler:upload" style="font-size: 20px; margin-right: 5px;"></iconify-icon>
+       
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <p *ngIf="fournisseurs.length === 0" class="no-data">
+    Aucun fournisseur trouvé.
+  </p>
+</div>

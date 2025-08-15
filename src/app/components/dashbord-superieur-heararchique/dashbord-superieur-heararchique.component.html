@@ -1,0 +1,159 @@
+
+<!-- dashboard-layout.component.html -->
+<div class="dashboard-layout">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <img src="assets/images/logos/OIP-removebg-preview.png" class="imggg" />
+
+    <div class="user-actions">
+      <!-- Icône Notifications -->
+      <button mat-icon-button 
+              matBadgeColor="warn"
+              (click)="ouvrirNotifications()" 
+              class="notif-btn" 
+              aria-label="Ouvrir les notifications">
+        <mat-icon >notifications</mat-icon>
+      </button>
+
+      <!-- Avatar utilisateur -->
+  <div class="avatar-wrapper">
+  <img src="assets/images/people/OIP.jpeg" class="avatar-img" />
+  <span class="user-name-short" (click)="toggleProfileMenu = !toggleProfileMenu">{{ userFullName }}</span>
+</div>
+
+  </div>
+  </header>
+
+  <!-- Menu Profil -->
+  <div class="profile-menu" *ngIf="toggleProfileMenu">
+    <div class="profile-header">
+      <img src="assets/images/people/OIP.jpeg"  class="profile-avatar" />
+      <div class="profile-text">
+        <div class="profile-name">{{ userFullName }}</div>
+        <div class="profile-email">{{ userEmail }}</div>
+      </div>
+    </div>
+
+    <nav class="profile-links">
+      <a routerLink="/dashboard/superieur/profil">
+        <mat-icon>settings</mat-icon>
+        <span>Modifier Profil</span>
+      </a>
+      <a routerLink="/dashboard/RH/changer-mot-de-passe">
+        <mat-icon>lock</mat-icon>
+        <span>Changer Mot de passe</span>
+      </a>
+      <a (click)="logout()">
+        <mat-icon class="icon-quittez">logout</mat-icon>
+        <span>Quittez</span>
+      </a>
+    </nav>
+  </div>
+
+
+
+
+
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="sidebar">
+      <div class="logo">
+        <img src="assets/images/logos/OIP (1).jpeg" alt="Dashboard Logo" />
+      </div>
+
+      <div class="nav-wrapper">
+        <div class="nav-section">
+          <h3>Home</h3>
+          <mat-nav-list>
+            <mat-list-item routerLink="/dashboard" routerLinkActive="active">
+              <a>
+                <iconify-icon icon="solar:atom-line-duotone" style="font-size: 20px;"></iconify-icon>
+                Dashboard
+              </a>
+            </mat-list-item>
+          </mat-nav-list>
+        </div>
+
+        <div class="nav-section">
+          <h3>Apps</h3>
+          <mat-nav-list>
+         <mat-list-item routerLink="/dashboard/superieur/evenement" routerLinkActive="active-link">
+
+              <a>
+                <iconify-icon icon="mdi:calendar-plus"  style="font-size: 20px;"></iconify-icon>
+                 Demandes
+              </a>
+            </mat-list-item>
+
+            <mat-list-item   routerLink="/dashboard/superieur/calander" routerLinkActive="active-link">
+              <a>
+                <iconify-icon icon="solar:calendar-mark-line-duotone" style="font-size: 20px;"></iconify-icon>
+                Calendar
+              </a>
+            </mat-list-item>
+
+            <mat-list-item>
+              <a>
+                <iconify-icon icon="solar:letter-line-duotone" style="font-size: 20px;"></iconify-icon>
+                Email
+              </a>
+            </mat-list-item>
+
+            <mat-list-item>
+              <a>
+                <iconify-icon icon="solar:phone-outline" style="font-size: 22px;"></iconify-icon>
+                Contacts
+              </a>
+            </mat-list-item>
+
+          </mat-nav-list>
+        </div>
+
+        <div class="nav-section">
+          <h3>Pages</h3>
+          <mat-nav-list>
+            <mat-list-item  routerLink="/dashboard/superieur/profil" routerLinkActive="active-link">
+              <a>
+                <iconify-icon icon="solar:accessibility-line-duotone" style="font-size: 20px;"></iconify-icon>
+                Account Setting
+              </a>
+            </mat-list-item>
+          </mat-nav-list>
+        </div>
+
+        <div class="nav-section">
+          <h3>Auth</h3>
+          <mat-nav-list>
+            <mat-list-item  >
+              <a>
+                <iconify-icon icon="solar:round-alt-arrow-right-line-duotone" style="font-size: 20px;"></iconify-icon>
+                Login
+              </a>
+            </mat-list-item>
+            <mat-list-item>
+              <a>
+                <iconify-icon icon="solar:user-plus-rounded-line-duotone" style="font-size: 20px;"></iconify-icon>
+                Register
+              </a>
+            </mat-list-item>
+            <mat-list-item>
+              <a>
+                <iconify-icon icon="solar:password-outline" style="font-size: 22px;"></iconify-icon>
+                Mot de passe Oublier
+              </a>
+            </mat-list-item>
+          </mat-nav-list>
+        </div>
+      </div>
+
+    </div>
+  </mat-sidenav>
+
+  
+  <mat-sidenav-content class="sidenav-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+  
+</mat-sidenav-container>

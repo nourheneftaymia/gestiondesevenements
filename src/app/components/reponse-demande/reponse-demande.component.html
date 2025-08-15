@@ -1,0 +1,70 @@
+<div class="page-container">
+ <h2 class="page-title">📋 Liste des demandes en attente</h2>
+    <div class="title-and-buttons">
+     
+
+      <div class="btn-history-actions">
+        <button mat-raised-button class="filter-btn attente" (click)="chargerDemandesEnAttente()"><span class="emoji emoji-pending">🟡</span> En attente</button>
+        <button mat-raised-button class="filter-btn validee" (click)="chargerDemandesValidees()"><span class="emoji emoji-valid">🟢</span>  Validé</button>
+        <button mat-raised-button class="filter-btn rejetee" (click)="chargerDemandesRejetees()"><span class="emoji emoji-refused">🔴</span>Rejeté</button>
+      </div>
+    </div>
+
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Date début</th>
+          <th>Date fin</th>
+          <th>Lieu</th>
+          <th>Coût</th>
+          <th>Catégorie</th>
+          <th>Importance</th>
+          <th>Commentaire RH</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let demande of demandes">
+          <td>{{ demande.idEvenement }}</td>
+          <td>{{ demande.createur.nom }} {{ demande.createur.prenom }}</td>
+          <td>{{ demande.createur.email }}</td>
+          <td>{{ demande.titre }}</td>
+          <td>{{ demande.description }}</td>
+           <td>  {{ demande.dateDebut | date:'yyyy-MM-dd' }} </td>
+
+          <td>{{ demande.dateFin | date:'yyyy-MM-dd' }}</td>
+          <td>{{ demande.lieu }}</td>
+          <td>{{ demande.cout }} TND</td>
+          <td>{{ demande.categorieEvenement }}</td>
+          <td>{{ demande.degreImportance }}</td>
+          <td>
+            <textarea
+              [(ngModel)]="commentaireMap[demande.idEvenement]"
+              placeholder="Commentaire si rejet"
+              class="comment-textarea"
+              rows="2"
+            ></textarea>
+          </td>
+          <td class="btn">
+       <!-- Bouton valider -->
+<button class="icon-btn validate" (click)="ouvrirDialogValidation(demande)" matTooltip="Valider">
+  <mat-icon>check_circle_outline</mat-icon>
+</button>
+
+<!-- Bouton rejeter -->
+<button class="icon-btn reject" (click)="rejeter(demande.idEvenement)" matTooltip="Rejeter">
+  <mat-icon>highlight_off</mat-icon>
+</button>
+
+        </tr>
+      </tbody>
+    </table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+

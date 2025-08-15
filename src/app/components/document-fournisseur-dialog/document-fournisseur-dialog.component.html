@@ -1,0 +1,32 @@
+<h3 *ngIf="selectedFournisseur">
+  Documents de {{ selectedFournisseur?.nom }} {{ selectedFournisseur?.prenom }}
+</h3>
+
+
+<li *ngFor="let doc of selectedFournisseur.documents">
+  <div class="document-header">
+    <span class="header-file">Nom du fichier</span>
+    <span class="header-date">Date d'ajout</span>
+    <span class="header-comment">Commentaire</span>
+  </div>
+
+  <!-- Liste -->
+  <ul class="document-list">
+    <li *ngFor="let doc of selectedFournisseur.documents" class="document-item">
+      <span class="file-name">📄 {{ doc.nomFichier }}</span>
+      <span class="file-date">{{ doc.dateAjout | date:'short' }}</span>
+      <span class="file-comment">{{ doc.commentaire }}</span>
+    </li>
+  </ul>
+</li>
+
+
+<ng-template #noDocs>
+  <p>Aucun document trouvé.</p>
+</ng-template>
+
+<form [formGroup]="formDocument" (ngSubmit)="upload()">
+  <input type="file" (change)="onFileChange($event)" required>
+  <input formControlName="commentaire" placeholder="Commentaire">
+  <button type="submit" [disabled]="!formDocument.valid || !fichier">Ajouter Document</button>
+</form>

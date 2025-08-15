@@ -1,0 +1,55 @@
+.calendar-container {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
+  margin: auto;
+}
+
+.calendar-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #8e24aa, #5c6bc0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.custom-calendar {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+
+/* Personnalisation FullCalendar */
+.fc .fc-toolbar-title {
+  font-size: 1.4rem;
+  color: #5c6bc0;
+}
+
+.fc .fc-button {
+  background: linear-gradient(90deg, #8e24aa, #5c6bc0);
+  border: none;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.fc .fc-button:hover {
+  opacity: 0.9;
+}
+
+.fc-event {
+  background: linear-gradient(90deg, #8e24aa, #5c6bc0);
+  border: none;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.fc-event:hover {
+  transform: scale(1.03);
+  transition: 0.2s;
+}

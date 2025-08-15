@@ -1,0 +1,20 @@
+<div *ngIf="evenement; else loadingOrError">
+  <h2>Événement le plus cher</h2>
+  <p><strong>Titre :</strong> {{ evenement.titre }}</p>
+  <p><strong>Lieu :</strong> {{ evenement.lieuEvenement }}</p>
+  <p><strong>Coût total :</strong> {{ evenement.cout  }}</p>
+
+  <h3>Répartition du coût</h3>
+
+<canvas baseChart
+  [data]="pieChartData"
+  [options]="pieChartOptions"
+  [type]="pieChartType">
+</canvas>
+
+</div>
+
+<ng-template #loadingOrError>
+  <p *ngIf="loading">Chargement en cours...</p>
+  <p *ngIf="error" class="error-text">{{ error }}</p>
+</ng-template>

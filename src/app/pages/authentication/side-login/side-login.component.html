@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion | Tessi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1A1C3A;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Bandes diagonales animées en bas à gauche */
+    .bandes-tessi {
+      position: absolute;
+      bottom: -200px;
+      left: -250px;
+      transform: rotate(-45deg);
+      width: 1000px;
+      height: 1000px;
+      z-index: 0;
+      pointer-events: none;
+    
+    }
+
+    .bandes-tessi div {
+      position: absolute;
+      border: 6px solid;
+      border-image: linear-gradient(to right, #00AEEF, #B13D87, #FF5F6D) 1;
+      width: 600px;
+      height: 100px;
+      opacity: 0.8;
+    }
+
+    .bandes-tessi div:nth-child(1) {
+      top: 150px;
+      left: 150px;
+   
+    }
+
+    .bandes-tessi div:nth-child(2) {
+      top: 300px;
+      left: 220px;
+     
+    }
+
+    .bandes-tessi div:nth-child(3) {
+      top: 450px;
+      left: 290px;
+   
+    }
+
+    /* Container principal */
+    .Container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+
+    mat-card {
+      background-color: white !important;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 550px; /* Formulaire élargi ici */
+    
+    }
+
+    .logo-small {
+      width: 140px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .or-border {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1A1C3A;
+      margin: 16px 0 28px;
+      text-align: center;
+    }
+
+    mat-form-field {
+      margin-bottom: 20px;
+    }
+
+    button[mat-flat-button] {
+      margin-top: 20px;
+      padding: 12px 0;
+      font-weight: bold;
+      font-size: 16px;
+      background: linear-gradient(to right, #7F3FBF, #FF5F6D) !important;
+      color: white !important;
+      border: none;
+      border-radius: 30px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .success {
+      color: green;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .d-flex {
+      display: flex;
+      align-items: center;
+    }
+
+    .m-l-auto {
+      margin-left: auto;
+    }
+
+    a.text-primary {
+      color: #FF5F6D;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    a.text-primary:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive pour petits écrans */
+    @media (max-width: 768px) {
+      mat-card {
+        max-width: 90%;
+        padding: 30px 20px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+
+    .blur-background {
+  filter: blur(6px);
+  pointer-events: none; /* désactive les clics sur le fond */
+  user-select: none;    /* désactive sélection de texte */
+  transition: filter 0.3s ease;
+}
+  </style>
+</head>
+<body>
+
+  <!-- Bandes diagonales animées en bas à gauche -->
+  <div class="bandes-tessi">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Formulaire principal -->
+  <div class="Container" id="main-content">
+    <mat-card>
+      <mat-card-content>
+
+        <!-- Logo -->
+        <div class="text-center">
+          <a [routerLink]="['/dashboard']">
+            <img src="./assets/images/logos/logo-vectoriel-tessi.jpg" class="logo-small" alt="logo Tessi" />
+          </a>
+        </div>
+
+        <!-- Titre -->
+        <div class="or-border">Se Connecter</div>
+
+        <!-- Formulaire -->
+        <form (ngSubmit)="onSubmit()">
+          <mat-label>Email</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput name="email" [(ngModel)]="email" required />
+          </mat-form-field>
+
+          <mat-label>Mot de passe</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput type="password" name="password" [(ngModel)]="password" required />
+          </mat-form-field>
+
+          <div class="d-flex">
+            <mat-checkbox color="primary">Se souvenir</mat-checkbox>
+     <a class="text-primary m-l-auto" (click)="openForgotPasswordDialog()">Mot de passe oublié ?</a>
+          </div>
+
+          <button mat-flat-button color="primary" class="w-100">Se Connecter</button>
+        </form>
+
+        <!-- Messages -->
+        <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+        <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<div class="page-profil" *ngIf="utilisateur">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f8fb;
+    }
+
+    .page-profil {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .menu-gauche {
+      width: 220px;
+      padding: 30px;
+      background-color: #fff;
+      border-right: 1px solid #e0e0e0;
+    }
+
+    .menu-gauche ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 40px;
+    }
+
+    .menu-gauche li {
+      padding: 10px 0;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .menu-gauche li.actif {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .deconnexion {
+      color: #d9534f;
+      cursor: pointer;
+    }
+
+    .contenu-profil {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .boite {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+
+    .boite-profil {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .avatar {
+      text-align: center;
+    }
+
+    .avatar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .infos {
+      flex: 1;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    h4 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .formulaire {
+      margin-bottom: 15px;
+    }
+
+    .formulaire label {
+      display: block;
+      color: #888;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .formulaire input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .groupe-boutons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .btn-secondaire {
+      background-color: #fff;
+      color: #0a9396;
+      border: 1px solid #0a9396;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-sauver {
+      background-color: #0a9396;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-desactive {
+      background-color: #ccc;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: not-allowed;
+      margin-top: 10px;
+    }
+
+    .btn-editer {
+      margin-top: 10px;
+      background-color: #f1f5f9;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+
+
+  <div class="contenu-profil">
+    <h2>Mon profil</h2>
+    <p>Gérez vos informations, votre statut et modifiez votre mot de passe.</p>
+
+    <div class="boite boite-profil">
+      <div class="avatar">
+      <img *ngIf="photoUrl" [src]="photoUrl" alt="Photo de profil" />
+        <h3>{{ utilisateur.prenom }} {{ utilisateur.nom }}</h3>
+        <p>{{ utilisateur.telephone }}</p>
+      </div>
+
+      <div class="infos">
+        <h4>Informations générales</h4>
+        <div class="formulaire">
+          <label>Prénom</label>
+          <input [(ngModel)]="utilisateur.prenom" [readonly]="!editionActive" />
+        </div>
+        <div class="formulaire">
+          <label>Nom</label>
+          <input [(ngModel)]="utilisateur.nom" [readonly]="!editionActive" />
+        </div>
+        <button class="btn-desactive" *ngIf="!editionActive">Mettre à jour</button>
+        <button class="btn-sauver" *ngIf="editionActive" (click)="enregistrer()">✅ Enregistrer</button>
+        <button *ngIf="!editionActive" class="btn-editer" (click)="activerEdition()">✏️ Modifier</button>
+        <div class="formulaire" *ngIf="editionActive">
+          <label>Photo</label>
+          <input type="file" (change)="onFileSelected($event)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="boite">
+      <h4>Sécurité</h4>
+      <div class="formulaire">
+        <label>Email</label>
+        <input [(ngModel)]="utilisateur.email" [readonly]="!editionActive" />
+      </div>
+      <div class="formulaire">
+        <label>Mot de passe</label>
+        <input type="password" value="********" readonly />
+      </div>
+      <div class="formulaire">
+        <label>Téléphone</label>
+        <input [(ngModel)]="utilisateur.telephone" [readonly]="!editionActive" />
+      </div>
+
+      <div class="groupe-boutons">
+        <button class="btn-secondaire">Changer mot de passe</button>
+        <button class="btn-secondaire">Changer téléphone</button>
+      </div>
+    </div>
+  </div>
+</div>

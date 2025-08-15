@@ -1,0 +1,108 @@
+.fournisseur-form {
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px 30px;
+  border-radius: 20px;
+  box-shadow: 0 16px 48px rgb(31 38 135 / 15%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'Inter', 'Roboto', sans-serif;
+
+  mat-form-field {
+    width: 100%;
+
+    input.mat-input-element, 
+    .mat-select-trigger {
+      font-size: 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background-color: #f9f9f9;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input.mat-input-element:focus,
+    .mat-select-trigger.mat-select-focused {
+      background-color: #e6f0ff;
+      box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.3);
+    }
+
+    .mat-form-field-outline {
+      border-radius: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    &.mat-focused .mat-form-field-outline {
+      border-color: #3f51b5 !important;
+      border-width: 2px !important;
+    }
+
+    mat-label {
+      font-weight: 600;
+      color: #495057;
+      font-size: 15px;
+      user-select: none;
+    }
+
+    mat-error {
+      font-size: 13px;
+      color: #e53935;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+
+    button {
+      min-width: 140px;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgb(63 81 181 / 18%);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+      mat-icon {
+        font-size: 20px;
+      }
+
+      &:disabled {
+        background-color: #a9b2d1 !important;
+        box-shadow: none !important;
+        cursor: not-allowed;
+        color: #f0f0f0 !important;
+      }
+
+      &:not(:disabled):hover {
+        box-shadow: 0 8px 30px rgb(63 81 181 / 30%);
+      }
+    }
+
+    button[mat-stroked-button] {
+      border-color: #3f51b5;
+      color: #3f51b5;
+      background-color: transparent;
+      box-shadow: none;
+
+      &:hover {
+        background-color: rgba(63, 81, 181, 0.1);
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.dialog-title {
+  text-align: center;
+  font-weight: 800;
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}

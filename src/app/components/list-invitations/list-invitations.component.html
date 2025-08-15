@@ -1,0 +1,58 @@
+
+<body>
+  <div class="page-container">
+    <div class="content-card">
+      <h2 class="page-title"> 📩 Liste des Invitations</h2>
+
+      <div class="header-utilisateur">
+        <button mat-flat-button (click)="openAjoutDialog()">
+          ➕ Envoyer Invitation
+        </button>
+      </div>
+
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Nom et Prénom </th>
+            <th>Email</th>
+            <th>Événement</th>
+            <th>Statut</th>
+            <th>Message</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invitation of invitations">
+            <td>{{ invitation.nom || 'Nom inconnu' }} {{ invitation.prenom || '' }}</td>
+            <td class="email-cell">{{ invitation.email || 'Email inconnu' }}</td>
+            <td>{{ invitation.titre || 'Événement inconnu' }}</td>
+            <td>
+              <button class="status-btn"
+                [ngClass]="{
+                  'status-validee': invitation.statusInvitation === 'VALIDEE',
+                  'status-en_attente': invitation.statusInvitation === 'EN_ATTENTE',
+                  'status-rejetee': invitation.statusInvitation === 'REJETEE'
+                }" disabled>
+                {{ invitation.statusInvitation }}
+              </button>
+            </td>
+            <td>{{ invitation.message }}</td>
+            <td>
+              <div class="actions-wrapper">
+                <button class="action-btn btn-edit" (click)="ouvrirModifierInvitationDialog(invitation)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="action-btn btn-delete" (click)="supprimerInvitation(invitation)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+               
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</body>

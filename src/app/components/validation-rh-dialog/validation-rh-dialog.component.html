@@ -1,0 +1,44 @@
+<body>
+  <div class="page-container">
+    <div class="dialog-container">
+      <h2 class="dialog-title">✅ Valider un Événement</h2>
+
+      <form class="dialog-form" [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-row">
+          <div>
+            <label for="lieu"><span class="icon">📍</span> Lieu*</label>
+            <input type="text" id="lieu" formControlName="lieu" required />
+          </div>
+
+          <div>
+            <label for="cout"><span class="icon">💰</span> Budget estimé (TND)*</label>
+            <input type="number" id="cout" formControlName="cout" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div>
+            <label for="dateDebut"><span class="icon">📅</span> Date début*</label>
+            <input type="date" id="dateDebut" formControlName="dateDebut" required />
+          </div>
+
+          <div>
+            <label for="dateFin"><span class="icon">📆</span> Date fin*</label>
+            <input type="date" id="dateFin" formControlName="dateFin" required />
+          </div>
+        </div>
+
+        <div>
+          <label for="commentaireRh"><span class="icon">📝</span> Commentaire RH</label>
+          <textarea id="commentaireRh" rows="4" formControlName="commentaireRh" placeholder="Ajoutez un commentaire si nécessaire..."></textarea>
+        </div>
+
+        <div class="dialog-actions">
+          <button type="button" class="cancel-btn" mat-dialog-close>Annuler</button>
+          <button type="submit" class="confirm-btn" [disabled]="form.invalid"> Valider</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

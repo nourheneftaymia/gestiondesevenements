@@ -1,0 +1,24 @@
+/* taux-participation.component.scss */
+
+:host {
+  display: block;
+  max-width: 800px;
+  margin: 0 auto; /* centre horizontalement */
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+canvas {
+  max-width: 100% !important;
+  height: auto !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 15px;
+}

@@ -1,0 +1,104 @@
+<h2 mat-dialog-title class="dialog-title">➕ Ajouter un utilisateur</h2>
+
+<mat-dialog-content [formGroup]="form" class="dialog-form">
+
+  <!-- Nom + Prénom sur la même ligne -->
+  <div class="row">
+    <div class="form-group">
+      <div class="emoji-label">📝Nom</div>
+      <input
+        matInput
+      
+        formControlName="nom"
+        class="simple-input"
+      />
+      <mat-error *ngIf="form.get('nom')?.hasError('required')">
+        Le nom est obligatoire.
+      </mat-error>
+    </div>
+
+    <div class="form-group">
+      <div class="emoji-label">🪪Prenom</div>
+      <input
+        matInput
+       
+        formControlName="prenom"
+        class="simple-input"
+      />
+      <mat-error *ngIf="form.get('prenom')?.hasError('required')">
+        Le prénom est obligatoire.
+      </mat-error>
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="form-group full-width">
+    <div class="emoji-label">📧Email</div>
+    <input
+      matInput
+     
+      type="email"
+      formControlName="email"
+      class="simple-input"
+    />
+    <mat-error *ngIf="form.get('email')?.hasError('required')">
+      L'email est obligatoire.
+    </mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('email')">
+      Format d'email invalide.
+    </mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('emailDomainInvalid')">
+      L'email doit se terminer par &#64;tessi.fr ou &#64;gmail.com
+    </mat-error>
+  </div>
+
+  <!-- Mot de passe -->
+  <div class="form-group full-width">
+    <div class="emoji-label">🔒Mot de Passe</div>
+    <div class="password-wrapper">
+      <input
+        matInput
+        
+        [type]="hidePassword ? 'password' : 'text'"
+        formControlName="password"
+        class="password-input"
+        readonly
+      />
+      <button
+        mat-icon-button
+        type="button"
+        (click)="togglePasswordVisibility()"
+      >
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Rôle -->
+  <div class="form-group full-width">
+    <div class="emoji-label">🎭 Role</div>
+    <mat-select formControlName="role" class="simple-input">
+      <mat-option value="SUPERIEUR_HEARARCHIQUE">Supérieur hiérarchique</mat-option>
+      <mat-option value="EMPLOYE">Employé</mat-option>
+      <mat-option value="DIRECTEUR">Directeur</mat-option>
+      <mat-option value="RESPONSABLE_RH">RESPONSABLE_RH</mat-option>
+
+    </mat-select>
+    <mat-error *ngIf="form.get('role')?.hasError('required')">
+      Le rôle est obligatoire.
+    </mat-error>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button color="warn" (click)="onCancel()">Annuler</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="form.invalid"
+    (click)="onSubmit()"
+  >
+    Ajouter
+  </button>
+</mat-dialog-actions>

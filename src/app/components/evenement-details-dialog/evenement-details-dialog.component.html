@@ -1,0 +1,70 @@
+<h2 mat-dialog-title class="dialog-title">📌 Détails de l'événement</h2>
+
+<mat-dialog-content>
+  <div class="details-container">
+    <!-- Image -->
+    <div *ngIf="data.imageEvenement" class="image-wrapper">
+      <img
+        [src]="'http://localhost:8083/uploads/' + data.imageEvenement"
+        alt="Image événement"
+      />
+    </div>
+
+    <!-- Infos principales -->
+    <section class="info-section">
+      <h3>Informations générales</h3>
+      <p><strong>🏷️ Titre :</strong> {{ data.titre }}</p>
+      <p><strong>🖋️ Description :</strong> {{ data.description || '–' }}</p>
+      <p><strong>📅 Date :</strong> {{ data.dateEvenement | date: 'dd/MM/yyyy' }}</p>
+      <p><strong>📍 Lieu :</strong> {{ data.lieuEvenement || '–' }}</p>
+      <p><strong>💰 Coût :</strong> {{ data.cout }} TND</p>
+    </section>
+
+    <!-- Participants -->
+    <section class="info-section">
+      <h3>👥 Participants</h3>
+      <ul *ngIf="data.participants?.length; else noParticipants">
+        <li *ngFor="let p of data.participants" class="list-item">{{ p.nom }}</li>
+      </ul>
+      <ng-template #noParticipants>
+        <p class="empty-text">– Aucun participant</p>
+      </ng-template>
+    </section>
+
+   <section class="info-section">
+  <h3>🏢 Fournisseurs</h3>
+  <ul *ngIf="data.fournisseurs?.length; else noFournisseurs">
+    <li *ngFor="let f of data.fournisseurs; let i = index" class="list-item">
+      <div class="fournisseur-header">
+        <span class="fournisseur-nom">{{ f.nom }}</span>
+        <span class="fournisseur-type">({{ f.type }})</span>
+      </div>
+      <p class="contact-info">
+        📧 {{ f.email || 'N/A' }} &nbsp;&nbsp; | &nbsp;&nbsp; 📞 {{ f.numero || 'N/A' }}
+      </p>
+
+      <ul *ngIf="f.documents?.length" class="documents-list">
+        <li *ngFor="let doc of f.documents; let idx = index" class="document-item">
+          📎 {{ doc.nomFichier }}
+
+          <!-- Lien dynamique vers fileUrls si disponible -->
+          <a *ngIf="fileUrls[i]?.[idx]" [href]="fileUrls[i][idx]" target="_blank">Voir</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ng-template #noFournisseurs>
+    <p class="empty-text">– Aucun fournisseur</p>
+  </ng-template>
+</section>
+
+
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="primary" (click)="dialogRef.close()">Fermer</button>
+</mat-dialog-actions>
+
+

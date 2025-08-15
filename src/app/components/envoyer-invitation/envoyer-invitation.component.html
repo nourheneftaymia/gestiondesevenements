@@ -1,0 +1,51 @@
+<body>
+  <div class="page-container">
+    <div class="dialog-container">
+      <h2 class="dialog-title">📩 Envoyer une Invitation</h2>
+
+      <form class="dialog-form" [formGroup]="invitationForm" (ngSubmit)="envoyer()">
+
+        <!-- Ligne Utilisateur + Événement -->
+        <div class="form-row">
+          <div>
+            <label for="idUser"><span class="icon">👤</span> Utilisateur*</label>
+            <select id="idUser" formControlName="idUser" required>
+              <option value="" disabled selected>-- Sélectionner utilisateur --</option>
+              <option *ngFor="let user of utilisateurs" [value]="user.idUser">{{ user.email }}</option>
+            </select>
+            <div class="form-error" *ngIf="invitationForm.get('idUser')?.invalid && invitationForm.get('idUser')?.touched">
+              Veuillez sélectionner un utilisateur.
+            </div>
+          </div>
+
+          <div>
+            <label for="idEvenement"><span class="icon">📅</span> Événement*</label>
+            <select id="idEvenement" formControlName="idEvenement" required>
+              <option value="" disabled selected>-- Sélectionner événement --</option>
+              <option *ngFor="let event of evenements" [value]="event.idEvenement">{{ event.titre }}</option>
+            </select>
+            <div class="form-error" *ngIf="invitationForm.get('idEvenement')?.invalid && invitationForm.get('idEvenement')?.touched">
+              Veuillez sélectionner un événement.
+            </div>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label for="message"><span class="icon">💬</span> Message*</label>
+          <textarea id="message" rows="4" formControlName="message" placeholder="Ex: Bonjour Cher, Vous êtes invité à..." required></textarea>
+          <div class="form-error" *ngIf="invitationForm.get('message')?.invalid && invitationForm.get('message')?.touched">
+            Le message est requis.
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="dialog-actions">
+          <button type="button" class="cancel-btn" (click)="annuler()">Annuler</button>
+
+          <button type="submit" class="confirm-btn" [disabled]="invitationForm.invalid">Envoyer l'invitation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

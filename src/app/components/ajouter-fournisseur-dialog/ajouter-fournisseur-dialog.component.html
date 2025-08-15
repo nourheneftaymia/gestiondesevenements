@@ -1,0 +1,55 @@
+<h2 mat-dialog-title class="dialog-title">Ajouter un Fournisseur</h2>
+
+<form [formGroup]="fournisseurForm" (ngSubmit)="onSubmit()" class="fournisseur-form">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nom</mat-label>
+    <input matInput formControlName="nom" required />
+    <mat-error *ngIf="fournisseurForm.get('nom')?.invalid && fournisseurForm.get('nom')?.touched">
+      Nom requis
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Prénom</mat-label>
+    <input matInput formControlName="prenom" required />
+    <mat-error *ngIf="fournisseurForm.get('prenom')?.invalid && fournisseurForm.get('prenom')?.touched">
+      Prénom requis
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email" required />
+    <mat-error *ngIf="fournisseurForm.get('email')?.invalid && fournisseurForm.get('email')?.touched">
+      Email invalide
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Numéro</mat-label>
+    <input matInput formControlName="numero" type="tel" required />
+    <mat-error *ngIf="fournisseurForm.get('numero')?.invalid && fournisseurForm.get('numero')?.touched">
+      Numéro invalide
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option *ngFor="let t of types" [value]="t">{{ t }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="fournisseurForm.get('type')?.invalid && fournisseurForm.get('type')?.touched">
+      Veuillez choisir un type
+    </mat-error>
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button mat-flat-button color="primary" type="submit" [disabled]="fournisseurForm.invalid">
+      <mat-icon>check_circle</mat-icon> Ajouter
+    </button>
+    <button mat-stroked-button mat-dialog-close>
+      <mat-icon>cancel</mat-icon> Annuler
+    </button>
+  </div>
+</form>

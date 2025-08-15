@@ -1,0 +1,100 @@
+.dialog-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 12px 0;
+  color: #2d3436;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 5px;
+}
+
+/* Ligne contenant Nom + Prénom */
+.row {
+  display: flex;
+  gap:30px;
+  width: 100%;
+}
+
+.row .form-group {
+  flex: 1; 
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.emoji-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #2c3e50;
+}
+
+/* Styles inputs et select */
+.simple-input,
+.password-input,
+.mat-select.simple-input {
+  border: 1.5px solid #dcdde1;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+  background: #fff;
+  width: 100%;
+}
+
+.simple-input:focus,
+.password-input:focus,
+.mat-select.simple-input:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+}
+
+/* Wrapper du champ mot de passe avec bouton visibilité */
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #dcdde1;
+  border-radius: 8px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.password-wrapper:focus-within {
+  border-color: #3f51b5;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+}
+
+.password-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+/* Actions bouton */
+.dialog-actions {
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+button[mat-flat-button],
+button[mat-stroked-button] {
+  border-radius: 8px;
+  font-weight: 600;
+}

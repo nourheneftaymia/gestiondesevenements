@@ -1,0 +1,17 @@
+<div class="stat-container">
+  <h3 class="title">📊 Statistiques des fournisseurs</h3>
+  <table class="stat-table">
+    <thead>
+      <tr>
+        <th>Fournisseur</th>
+        <th>Nombre d'utilisations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fournisseur of fournisseurs; let i = index">
+        <td>{{ fournisseur }}</td>
+        <td>{{ counts[i] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

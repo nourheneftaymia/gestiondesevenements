@@ -1,0 +1,78 @@
+<div class="page-container">
+  <div class="dialog-container">
+    <h2 class="dialog-title">✏️ Modifier l'événement</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-form">
+      <!-- Ligne Titre + Catégorie -->
+      <div class="form-row">
+        <div>
+          <label for="titre"><span class="icon">📝</span> Titre*</label>
+          <input id="titre" type="text" formControlName="titre" placeholder="Titre" />
+          <div class="form-error" *ngIf="form.get('titre')?.invalid && form.get('titre')?.touched">
+            Le titre est obligatoire.
+          </div>
+        </div>
+
+        <div>
+          <label for="categorieEvenement"><span class="icon">🏷️</span> Catégorie</label>
+          <select id="categorieEvenement" formControlName="categorieEvenement">
+            <option *ngFor="let cat of categories" [value]="cat">{{ formatCategorie(cat) }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label for="description"><span class="icon">🖋️</span> Description*</label>
+        <textarea id="description" rows="4" formControlName="description" placeholder="Description"></textarea>
+        <div class="form-error" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+          La description est obligatoire.
+        </div>
+      </div>
+
+      <!-- Dates -->
+      <div class="form-row">
+        <div>
+          <label for="dateDebut"><span class="icon">📅</span> Date début*</label>
+          <input id="dateDebut" type="date" formControlName="dateDebut" />
+          <div class="form-error" *ngIf="form.get('dateDebut')?.invalid && form.get('dateDebut')?.touched">
+            La date début est obligatoire.
+          </div>
+        </div>
+
+        <div>
+          <label for="dateFin"><span class="icon">📅</span> Date fin*</label>
+          <input id="dateFin" type="date" formControlName="dateFin" />
+          <div class="form-error" *ngIf="form.get('dateFin')?.invalid && form.get('dateFin')?.touched">
+            La date fin est obligatoire.
+          </div>
+        </div>
+      </div>
+
+      <!-- Lieu + Importance -->
+      <div class="form-row">
+        <div>
+          <label for="lieu"><span class="icon">📍</span> Lieu</label>
+          <input id="lieu" type="text" formControlName="lieu" placeholder="Lieu" />
+        </div>
+
+        <div>
+          <label for="degreImportance"><span class="icon">⚠️</span> Importance</label>
+          <input id="degreImportance" type="text" formControlName="degreImportance" placeholder="Importance" />
+        </div>
+      </div>
+
+      <!-- Coût -->
+      <div>
+        <label for="cout"><span class="icon">💰</span> Coût</label>
+        <input id="cout" type="number" formControlName="cout" placeholder="Coût" />
+      </div>
+
+      <!-- Boutons -->
+      <div class="dialog-actions">
+        <button type="button" class="cancel-btn" >Annuler</button>
+        <button type="submit" class="confirm-btn" [disabled]="form.invalid">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Détails de la validation RH</h2>
+<mat-dialog-content>
+  <p><strong>Commentaire RH:</strong> {{ data.commentaireRh }}</p>
+  <p><strong>Lieu:</strong> {{ data.lieu }}</p>
+  <p><strong>Date début:</strong> {{ data.dateDebut | date:'shortDate' }}</p>
+  <p><strong>Date fin:</strong> {{ data.dateFin | date:'shortDate' }}</p>
+  <p><strong>Budget:</strong> {{ data.cout }} TND</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fermer</button>
+</mat-dialog-actions>

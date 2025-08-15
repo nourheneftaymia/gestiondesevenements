@@ -1,0 +1,115 @@
+<div class="page-container">
+  <h2 class="page-title">📋 Gestion des Événements</h2>
+
+  <div class="content-card">
+
+    <!-- 🔍 Barre de recherche et bouton de création -->
+    <div class="header-utilisateur">
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Rechercher un événement..."
+        [(ngModel)]="searchText"
+      />
+      <button mat-flat-button (click)="openAjoutDialog()" class="dropdown-button">
+        Créer un événement
+        <span [class.arrow-up]="isDialogOpen" [class.arrow-down]="!isDialogOpen"></span>
+      </button>
+    </div>
+
+    <!-- 📋 Tableau des événements -->
+    <table class="styled-table" *ngIf="evenements.length > 0; else aucunEvenement">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image Événement</th>
+          <th>Image Participation</th>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Lieu</th>
+          <th>Coût</th>
+          <th>Fournisseurs</th>
+          <th>Participants</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of evenements">
+          <td>{{ event.idEvenement }}</td>
+
+          <!-- Image Événement -->
+          <td>
+            <img
+              *ngIf="event.imageEvenement; else noImgEvent"
+              [src]="'http://localhost:8083/uploads/' + event.imageEvenement"
+              alt="Image Événement"
+              width="60"
+              height="60"
+            />
+            <ng-template #noImgEvent>-</ng-template>
+          </td>
+
+          <!-- Image Participation -->
+          <td>
+            <img
+              *ngIf="event.imageParticipation; else noImgParticipation"
+              [src]="'http://localhost:8083/uploads/' + event.imageParticipation"
+              alt="Image Participation"
+              width="60"
+              height="60"
+            />
+            <ng-template #noImgParticipation>-</ng-template>
+          </td>
+
+          <td>{{ event.titre }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.dateEvenement | date:'dd/MM/yyyy' }}</td>
+          <td>{{ event.lieuEvenement }}</td>
+          <td>{{ event.cout }} TND</td>
+
+          <!-- Fournisseurs -->
+          <td>
+            <ul *ngIf="event.fournisseurs?.length > 0; else noFournisseurs">
+              <li *ngFor="let f of event.fournisseurs">
+                {{ f.nom }} ({{ f.type }})
+                <ul *ngIf="f.documents?.length > 0">
+                  <li *ngFor="let doc of f.documents">📎 {{ doc.nomFichier }}</li>
+                </ul>
+              </li>
+            </ul>
+            <ng-template #noFournisseurs>-</ng-template>
+          </td>
+
+          <!-- Participants -->
+          <td>
+            <ul *ngIf="event.participants?.length > 0; else noParticipants">
+              <li *ngFor="let p of event.participants">{{ p.nom }}</li>
+            </ul>
+            <ng-template #noParticipants>-</ng-template>
+          </td>
+
+          <!-- Actions -->
+          <td>
+            <button mat-icon-button (click)="openModifDialog(event)" matTooltip="Modifier">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openDetailsDialog(event)" matTooltip="Détails">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Supprimer" class="btn-delete" (click)="supprimerEvenement(event.idEvenement)">
+              <mat-icon class="icon-delete">delete</mat-icon>
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 🛑 Aucun événement -->
+    <ng-template #aucunEvenement>
+      <p class="no-event-text">Aucun événement trouvé.</p>
+    </ng-template>
+
+  </div>
+</div>

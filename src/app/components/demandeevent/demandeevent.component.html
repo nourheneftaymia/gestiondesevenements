@@ -1,0 +1,112 @@
+<body>
+  <div class="page-container">
+
+    <div class="content-card">
+      <!-- En-tête -->
+      <div class="header-utilisateur">
+        <input type="text" class="search-bar" placeholder="Rechercher un événement..." />
+        <button mat-flat-button (click)="openAjoutDialog()" class="dropdown-button">
+          ➕ Demander un événement
+          <span [class.arrow-up]="isDialogOpen" [class.arrow-down]="!isDialogOpen"></span>
+        </button>
+      </div>
+
+      <!-- Tableau -->
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Lieu</th>
+            <th>Coût</th>
+            <th>Catégorie</th>
+            <th>Importance</th>
+            <th>Status</th>
+            <th>Commentaire</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="evenements && evenements.length > 0; else noEvents">
+          <tr *ngFor="let event of evenements">
+            <td>{{ event.idEvenement }}</td>
+            <td>{{ event.titre }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.dateDebut | date: 'shortDate' }}</td>
+            <td>{{ event.dateFin | date: 'shortDate' }}</td>
+            <td>{{ event.lieu }}</td>
+            <td>{{ event.cout }} TND</td>
+            <td>{{ event.categorieEvenement }}</td>
+            <td>{{ event.degreImportance }}</td>
+
+            <!-- Status coloré -->
+            <td>
+              <button class="status-btn"
+                [ngClass]="{
+                  'status-validee': event.statusValidation === 'VALIDEE',
+                  'status-en_attente': event.statusValidation === 'EN_ATTENTE',
+                  'status-rejetee': event.statusValidation === 'REJETEE'
+                }" disabled>
+                {{ event.statusValidation }}
+              </button>
+            </td>
+
+            <!-- Commentaire & Détail RH -->
+            <td>
+              <!-- Détail RH (si validé) -->
+              <button
+                mat-icon-button
+                *ngIf="event.statusValidation === 'VALIDEE'"
+                (click)="ouvrirDialogDetailValidation(event)"
+                matTooltip="Voir détails validation RH">
+                <mat-icon>info</mat-icon>
+              </button>
+              <span *ngIf="event.statusValidation !== 'VALIDEE'">-</span>
+
+              <!-- Commentaire RH -->
+              <button
+                mat-icon-button
+                *ngIf="event.commentaireRh"
+                (click)="ouvrirDialogCommentaire(event.commentaireRh)"
+                aria-label="Voir commentaire"
+                matTooltip="Voir commentaire">
+                
+  <iconify-icon icon="solar:chat-round-line-line-duotone" classe="chat"></iconify-icon>
+
+
+              </button>
+              <span *ngIf="!event.commentaireRh">-</span>
+            </td>
+
+            <!-- Actions : Modifier / Supprimer -->
+            <td>
+              <button mat-icon-button (click)="ouvrirDialogModification(event)" title="Modifier">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button 
+              class="action-btn btn-delete"
+                (click)="supprimerEvenement(event.idEvenement, event.statusValidation)"
+                [disabled]="event.statusValidation !== 'EN_ATTENTE'">
+                 <mat-icon class="icon-delete">delete</mat-icon>
+              </button>
+              
+
+            </td>
+          </tr>
+        </tbody>
+
+        <!-- Aucun événement -->
+        <ng-template #noEvents>
+          <tr>
+            <td colspan="12" style="text-align: center;">Aucun événement trouvé</td>
+          </tr>
+        </ng-template>
+      </table>
+      	<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</body>
